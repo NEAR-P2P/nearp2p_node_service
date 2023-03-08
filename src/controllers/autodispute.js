@@ -7,6 +7,7 @@ const path = require('path')
 const hbs = require('nodemailer-express-handlebars')
 
 // Callback autodispute
+// admin@nearp2p.com/adominguez@dvconsultores.com,domgarmining@gmail.com/12/sell/andromeda2018.testnet/ed25519:2cGtc4pBqZ8gqw4VsumvitNWDrmiv2f4DQceRA6y6U7421rHvtj76JhNEizm1pojLZctbDFuYrtiCaLwVvp4sEiq/testnet/v5.nearp2p.testnet/qbogcyqiqO7Utwqm3VgKhxrmQIc0ROjj/2
 async function callbackFunction (arg) {
   // Near conection
   const keyStore = new keyStores.InMemoryKeyStore()
@@ -29,7 +30,8 @@ async function callbackFunction (arg) {
     changeMethods: ['dispute'],
     sender: account
   })
-
+  // console.log('type', arg[3])
+  // console.log('order_id', arg[2])
   // Validate if the order is a sell or a buy
   if (arg[3] === 'sell') {
     try {
@@ -51,10 +53,10 @@ async function callbackFunction (arg) {
     }
   }
 
-  console.log(arg[2])
+  // console.log(arg[2])
   // console.log(this.response.length);
   // If the order is not found
-  if (this.response.length > 0) {
+  if (this.response.data.length > 0) {
     const offer_type = 1
     if (arg[3] === 'sell') {
       this.offer_type = 1
@@ -66,13 +68,16 @@ async function callbackFunction (arg) {
         callbackUrl: '', // callbackUrl after the transaction approved (optional)
         meta: 'some info', // meta info (optional)
         args: {
-          offer_type,
+          offer_type: this.offer_type,
           order_id: parseInt(arg[2]),
           token: arg[8]
         }
       })
 
-      // console.log('Dispute');
+      // console.log('Dispute')
+      // console.log('offer_type', this.offer_type)
+      // console.log('order_id', parseInt(arg[2]))
+      // console.log('token', arg[8])
 
       // Code here
       const transporter = nodemailer.createTransport({
@@ -114,7 +119,7 @@ async function callbackFunction (arg) {
           console.log(error)
           res.json(error)
         } else {
-          // console.log('Email sent: ' + info.response);
+          console.log('Email sent: ' + info.response);
           res.json(200)
         }
       })
@@ -130,7 +135,8 @@ async function callbackFunction (arg) {
 const autoDispute = async (req, res) => {
   // req.params.time*60000
   // callbackFunction([req.params.from, req.params.to, req.params.order, req.params.type, req.params.wallet, req.params.key, req.params.network, req.params.cn, req.params.token]), res;
-  setTimeout(callbackFunction, 3000, [req.params.from, req.params.to, req.params.order, req.params.type, req.params.wallet, req.params.key, req.params.network, req.params.cn, req.params.token])
+  console.log('Calling autodispute in', req.params.time * 1000)
+  setTimeout(callbackFunction, parseInt(req.params.time * 1000), [req.params.from, req.params.to, req.params.order, req.params.type, req.params.wallet, req.params.key, req.params.network, req.params.cn, req.params.token])
   // console.log(process.env.VIEW_PATH.toString())
   res.json(200)
 }

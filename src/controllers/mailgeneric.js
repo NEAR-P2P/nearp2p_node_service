@@ -35,9 +35,9 @@ const mailGeneric = async (req, res) => {
       context:{
         order: req.params.order, // replace
         type: req.params.type, // replace
-        p1: 'Successfully Executed Order, please release!',
+        p1: 'Order Executed Successfully!',
         p2: 'Hello you are receiving this mail because your order number',
-        p3: 'has been marked as completed, please release.',
+        p3: 'has been marked as completed.',
       }
    }
   }else{
@@ -49,7 +49,7 @@ const mailGeneric = async (req, res) => {
       context:{
         order: req.params.order, // replace
         type: req.params.type, // replace
-        p1: 'Successfully Place new Order, please check!',
+        p1: 'Successfully Placed new Order, please check!',
         p2: 'Hello you are receiving this mail because your have a new order',
       }
    }  

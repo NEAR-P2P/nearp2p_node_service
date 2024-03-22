@@ -46,9 +46,9 @@ const fetch_users = async () => {
 async function callbackFunction () {
   // Near conection
   // eslint-disable-next-line no-undef
-  const VLCONTRACTNAME = 'v9.nearp2p.testnet'
+  const VLCONTRACTNAME = 'v17.nearp2p.testnet'
   const VLSIGNER_ID = 'nearp2p.testnet'
-  const VLSIGNER_PRIVATEKEY = 'ed25519:3NhECSsuXHMBM4uzewfyoH4FnTrxRjy8Zsnqxjkwhi5QWTkSwMH7UzWYvBnxVte4qPxGKnMUSAdiG1MTUn4a9mJo'
+  const VLSIGNER_PRIVATEKEY = 'ed25519:3NhECSsuXHMBM4uzewfyoH4FnTrxRjy8Zsnqxjkwhi5QWTkSwMH7UzWYvBnxVte4qPxGKnMUSAdiG1MTUn4a9mJo"'
   const VLNETWORK = 'testnet'
 
   const keyStore = new keyStores.InMemoryKeyStore()

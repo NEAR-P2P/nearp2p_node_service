@@ -15,7 +15,7 @@ const InMemoryCache = require('apollo-cache-inmemory').InMemoryCache
 
 const client = new ApolloClient({
   link: createHttpLink({
-    uri: 'https://api.thegraph.com/subgraphs/name/hrpalencia/p2p',
+    uri: 'https://api.thegraph.com/subgraphs/name/hrpalencia/p2pmainnet',
     fetch
   }),
   cache: new InMemoryCache()
@@ -46,9 +46,9 @@ const fetch_users = async () => {
 async function callbackFunction () {
   // Near conection
   // eslint-disable-next-line no-undef
-  const VLCONTRACTNAME = 'v2.nearp2pdex.near'
+  const VLCONTRACTNAME = 'v4.nearp2pdex.near'
   const VLSIGNER_ID = 'adminp2p.near'
-  const VLSIGNER_PRIVATEKEY = 'ed25519:5MmZZERGGaZ6fg9RKiHPpWxfy7CdW4roYPzazWPpWee13PxdNLHjVQgcjWiFN9D7tybq35VP69ELPpdHaDeAamPw'
+  const VLSIGNER_PRIVATEKEY = 'ed25519:vZW5NpAFgVca381zcq3tTWoq8dbxuB5WkumDNVS6GS3zDJpgrrRxFYgv9RLqc1YbawqEDdxXJQXDnTs3CYor72n'
   const VLNETWORK = 'mainnet'
 
   const keyStore = new keyStores.InMemoryKeyStore()

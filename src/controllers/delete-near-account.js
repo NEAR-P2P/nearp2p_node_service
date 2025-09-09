@@ -30,7 +30,7 @@ switch (configSetting) {
     config = {
       networkId: "mainnet",
       keyStore, // optional if not signing transactions
-      nodeUrl: "https://rpc.mainnet.near.org",
+      nodeUrl: "https://free.rpc.fastnear.com",
       walletUrl: "https://wallet.near.org",
       helperUrl: "https://helper.mainnet.near.org",
       explorerUrl: "https://explorer.mainnet.near.org",

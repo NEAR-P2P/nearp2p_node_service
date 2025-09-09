@@ -3,15 +3,15 @@ const nearAPI = require('near-api-js');
 async function functionStorageDeposit(req, res) {
     try {
         const account_id  = req.body.account_id;
-        const walletName = 'andresdom.near';
-        const privateKey = 'ed25519:4X1e5brv7Vjps5vYZyGgZg8dzBGTwyAx9ZTHS83ug4iCYiBwEG2Xr4a9TNXLEMD8rWPGne98aysw5D3N6af5ifvz'; // replace with your actual private key
+        const walletName = process.env.WALLET; // replace with your wallet name
+        const privateKey = process.env.PRIVATE_KEY; // replace with your actual private key
         const keyPair = nearAPI.utils.KeyPair.fromString(privateKey);
         const keyStore = new nearAPI.keyStores.InMemoryKeyStore();
         await keyStore.setKey('mainnet', walletName, keyPair);
         const near = await nearAPI.connect({
             deps: { keyStore },
             networkId: 'mainnet',
-            nodeUrl: 'https://rpc.mainnet.near.org',
+            nodeUrl: 'https://free.rpc.fastnear.com',
             walletUrl: 'https://app.mynearwallet.com/',
         });
 

@@ -1,21 +1,21 @@
+const { SESClient, SendEmailCommand } = require('@aws-sdk/client-ses');
 var nodemailer = require('nodemailer'); 
 const path = require('path')
 const hbs = require('nodemailer-express-handlebars')
-const aws = require('aws-sdk');
 
 //Dispute
 const mailDispute = async (req, res) => {
 
-  aws.config.update({
-    accessKeyId: '123',
-    secretAccessKey: '123',
-    region: 'us-east-2' // e.g. 'us-west-2'
-});
+  const sesClient = new SESClient({
+    region: 'us-east-2',
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    }
+  });
 
   let transporter = nodemailer.createTransport({
-    SES: new aws.SES({
-        apiVersion: '2010-12-01'
-    })
+    SES: { ses: sesClient, aws: { SendEmailCommand } }
   });
 
  // point to the template folder

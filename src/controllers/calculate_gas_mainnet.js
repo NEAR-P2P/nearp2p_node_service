@@ -25,7 +25,7 @@ const keyStore = new keyStores.UnencryptedFileSystemKeyStore(credentialsPath)
 const config = {
   keyStore,
   networkId: 'mainnet',
-  nodeUrl: 'https://rpc.mainnet.near.org'
+  nodeUrl: 'https://free.rpc.fastnear.com'
 }
 
 calculateGas(CONTRACT_ID, METHOD_NAME, args, ATTACHED_DEPOSIT)

@@ -9,14 +9,23 @@ const dbConnect = async () => {
       database: process.env.DATABASE,
       password: process.env.PASSWORD_DB,
       port: process.env.PORT,
+      ssl: {
+        rejectUnauthorized: false
+      }
     }
     // const client = new Client(connectionData)
     // return client
 
-    const pool = await new Pool(connectionData)
+    const pool = new Pool(connectionData)
+    
+    // Test the connection
+    await pool.query('SELECT NOW()');
+
+    console.log('PostgreSQL connected successfully');
     return pool
   } catch (error) {
-    return error
+    console.error('PostgreSQL connection error:', error);
+    return null;
   }
   
 }

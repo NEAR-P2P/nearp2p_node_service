@@ -1,0 +1,31 @@
+services:
+  nearp2p_node_service:
+    image: metademocracia1/nearp2p_node_service:latest
+    container_name: nearp2p_node_service
+    restart: always
+    env_file: ".env"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - .env:/app/.env
+    ports:
+      - "3070:3070"
+    networks:
+      - proxy_net
+
+
+  watchtower-nearp2p:
+    image: containrrr/watchtower
+    container_name: watchtower-nearp2p-latest
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=30
+    networks:
+      - proxy_net
+
+networks:
+  proxy_net:
+    external: true

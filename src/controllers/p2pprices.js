@@ -7,7 +7,7 @@ const getp2pPrices = async (req, res) => {
 
         const conexion = await dbConnect()
         const resultados = await conexion.query("select * \
-                                                from p2p_prices where \
+                                                from public.p2p_prices where \
                                                 (fiat = $1 or '%' = $1) and UPPER(crypto) = UPPER($2)\
                                                 ", [fiat, crypto])
         res.json(resultados.rows)

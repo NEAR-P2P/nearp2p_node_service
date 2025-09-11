@@ -14,15 +14,31 @@ app.use(bodyParser.json())
 dbConnect()
 app.use(morgan('dev'))
 
+// --- Production CORS Configuration ---
+const whitelist = [
+  'https://nearp2p.com',
+  'https://www.nearp2p.com',
+  'https://mi.arepa.digital',
+  'https://metademocracia.social'
+  // Add any other domains or subdomains that need access
+];
 
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
 
-app.use(cors({
-  origin: '*',
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true); // Origin is in the whitelist
+    } else {
+      callback(new Error('Not allowed by CORS')); // Origin is not in the whitelist
+    }
+  },
   methods: 'GET, POST',
   credentials: true
-}));
+};
 
-// app.use(cors({ origin: '*', origin: true, methods: 'GET, POST', credentials: true }))
+app.use(cors(corsOptions));
 
 app.use('/api/sendmailp2p', require('./src/routes'))
 

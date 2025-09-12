@@ -17,6 +17,7 @@ app.use(morgan('dev'))
 // --- Production CORS Configuration ---
 const whitelist = [
   'https://nearp2p.com',
+  'https://app.nearp2p.com',
   'https://www.nearp2p.com',
   'https://mi.arepa.digital',
   'https://metademocracia.social',

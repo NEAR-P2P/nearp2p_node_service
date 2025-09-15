@@ -21,7 +21,8 @@ const whitelist = [
   'https://www.nearp2p.com',
   'https://mi.arepa.digital',
   'https://metademocracia.social',
-  'https://nearp2p.metademocracia.social'
+  'https://nearp2p.metademocracia.social',
+  'https://budares.arepa.digital'
   // Add any other domains or subdomains that need access
 ];
 

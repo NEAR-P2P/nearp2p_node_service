@@ -8,40 +8,19 @@ const cors = require('cors')
 const { dbConnect } = require('./config/postgres')
 const bodyParser = require('body-parser')
 
-
-
 app.use(bodyParser.json())
 dbConnect()
 app.use(morgan('dev'))
 
-// --- Production CORS Configuration ---
-const whitelist = [
-  'https://nearp2p.com',
-  'https://app.nearp2p.com',
-  'https://www.nearp2p.com',
-  'https://mi.arepa.digital',
-  'https://metademocracia.social',
-  'https://nearp2p.metademocracia.social',
-  'https://budares.arepa.digital'
-  // Add any other domains or subdomains that need access
-];
+// --- Allow ALL origins ---
+app.use(cors()); // This allows all origins
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true); // Origin is in the whitelist
-    } else {
-      callback(new Error('Not allowed by CORS')); // Origin is not in the whitelist
-    }
-  },
-  methods: 'GET, POST',
-  credentials: true
-};
-
-app.use(cors(corsOptions));
+// Alternative if you want more control:
+// app.use(cors({
+//   origin: '*',
+//   methods: 'GET, POST',
+//   credentials: false
+// }));
 
 app.use('/api/sendmailp2p', require('./src/routes'))
 

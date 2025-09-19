@@ -12,15 +12,18 @@ app.use(bodyParser.json())
 dbConnect()
 app.use(morgan('dev'))
 
-// --- Allow ALL origins ---
-app.use(cors()); // This allows all origins
+// --- CORS Configuration ---
+const corsOptions = {
+  origin: true, // Allow all origins
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: false // Set to false when origin is not specific
+};
 
-// Alternative if you want more control:
-// app.use(cors({
-//   origin: '*',
-//   methods: 'GET, POST',
-//   credentials: false
-// }));
+app.use(cors(corsOptions));
+
+// Handle preflight OPTIONS requests
+app.options('*', cors(corsOptions));
 
 app.use('/api/sendmailp2p', require('./src/routes'))
 
